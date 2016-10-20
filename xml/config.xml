@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node type="client" xlsx="constant.xlsx" page="品质" out="factoryItl.tbl" code="FactoryItlConfig.as">
+		<item type="int" name="智力上限" code="intelligence" />
+		<item type="int" name="额外数量1" code="extra1" />
+		<item type="int" name="额外数量2" code="extra2" />
+		<item type="int" name="额外数量3" code="extra3" />
+		<item type="int" name="额外数量4" code="extra4" />
+		<item type="int" name="额外数量5" code="extra5" />
+		<item type="int" name="额外数量6" code="extra6" />
+		<item type="int" name="额外数量7" code="extra7" />
+	</node>
+</data>
