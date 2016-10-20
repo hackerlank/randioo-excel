@@ -2,11 +2,9 @@ package com.randioo.config.randioo_excel;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.util.Iterator;
-import java.util.List;
 
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -32,8 +30,10 @@ public class RandiooConfigExcelApp {
 			Element nodeE = nodeIt.next();
 			String xlsxName = nodeE.attributeValue("xlsx");
 			String page = nodeE.attributeValue("page");
+			String out = nodeE.attributeValue("out");
+			String code = nodeE.attributeValue("code");
 			Sheet sheet = getSheet("excelFile", xlsxName, page);
-			System.out.println(sheet.getSheetName());
+			
 		}
 
 	}
