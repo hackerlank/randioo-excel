@@ -1,0 +1,1 @@
+java -jar randioo-excel-0.0.1-SNAPSHOT.jar config_url=./xml/config.xml java_template_url=./template/templateJava.txt as_template_url=./template/templateAS.txt excel_url=./excelFile out_url=./out po=config bytes_varname=data

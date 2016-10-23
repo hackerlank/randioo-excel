@@ -1,4 +1,4 @@
-package com.randioo.config.randioo_excel;
+package com.randioo.config.randioo_excel.po;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +6,14 @@ import java.util.List;
 import org.dom4j.Element;
 
 public class NodeConfig {
-	public String xlsx;
-	public String page;
-	public String key;
-	public String out;
-	public String code;
-	public String type;
-	public List<ItemConfig> itemList = new ArrayList<>();
+	public final String xlsx;
+	public final String page;
+	public final String key;
+	public final String out;
+	public final String code;
+	public final String type;
+	public final String className;
+	public final List<ItemConfig> itemList = new ArrayList<>();
 
 	public NodeConfig(Element element) {
 		this.type = element.attributeValue("type");
@@ -25,6 +26,7 @@ public class NodeConfig {
 		for (int i = 0; i < elements.size(); i++) {
 			itemList.add(new ItemConfig((Element) elements.get(i)));
 		}
+		this.className = code.split("\\.")[0];
 	}
 
 	@Override

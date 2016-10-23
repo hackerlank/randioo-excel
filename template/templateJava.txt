@@ -1,0 +1,16 @@
+package com.randioo.config.randioo_excel.po;
+
+import com.randioo.config.randioo_excel.Data;
+import com.randioo.config.randioo_excel.cache.$CLASS_NAMECache;
+
+public class $CLASS_NAME{
+	public static final String urlKey="$URL";
+	$PROP	
+	public static void parse(Data $BYTES_VAR_NAME){
+		while($BYTES_VAR_NAME.hasRemaining()){
+			$CLASS_NAME $PO = new $CLASS_NAME();
+			$ASSIGN
+			$CLASS_NAMECache.putConfig($PO);
+		}
+	}
+}

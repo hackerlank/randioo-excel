@@ -1,20 +1,20 @@
-package com.randioo.config.randioo_excel;
+package com.randioo.config.randioo_excel.po;
 
 import org.dom4j.Element;
 
 public class ItemConfig {
-	public String type;
-	public String name;
-	public String code;
-	public String replace;
-	public String comment;
+	public final String type;
+	public final String name;
+	public final String code;
+	public final String comment;
+	public final String replace;
 
 	public ItemConfig(Element element) {
 		this.type = element.attributeValue("type");
 		this.name = element.attributeValue("name");
 		this.code = element.attributeValue("code");
 		this.replace = element.attributeValue("replace");
-		this.replace = element.attributeValue("comment");
+		this.comment = element.attributeValue("comment");
 	}
 
 	@Override
