@@ -101,17 +101,6 @@ public class Data {
 		return str;
 	}
 
-	public Data putBoolean(boolean value) {
-		byte result = (byte) (value ? 1 : 0);
-		dataList.add(result);
-		return this;
-	}
-
-	public boolean getBoolean() {
-		byte value = dataBuffer.get();
-		return value == 1 ? true : false;
-	}
-
 	public Data putDouble(double value) {
 		ByteBuffer buf = ByteBuffer.allocate(Double.SIZE / 8);
 		buf.order(order);

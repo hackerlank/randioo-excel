@@ -51,7 +51,11 @@ public class JavaParser extends LanguageParser {
 	@Override
 	public String assignmentFormatter(String valueType) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("{0}.{1}={2}.get").append(UpStr(get(valueType))).append("();");
+		if(valueType.equals("string")){
+			sb.append("b = new byte[{2}.getShort()];{2}.get(b);{0}.{1}=new String(b);");
+		}else{
+			sb.append("{0}.{1}={2}.get").append(UpStr(get(valueType))).append("();");			
+		}
 
 		return sb.toString();
 	}

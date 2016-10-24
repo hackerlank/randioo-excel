@@ -1,22 +1,26 @@
-package com.randioo.config.randioo_excel.po;
+package com.aim.config.fo;
 
-import com.randioo.config.randioo_excel.Data;
-import com.randioo.config.randioo_excel.cache.ParamConfigCache;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
+import com.aim.config.cache.ParamConfigCache;
 
 public class ParamConfig{
-	public static final String urlKey="parameter.tbl";
+	public static String urlKey="parameter.tbl";
 	/**参数项*/
 	public String param;
 	/**性别*/
-	public int value;
+	public String value;
 	/**颜色*/
 	public int color;
 		
-	public static void parse(Data data){
+	public static void parse(ByteBuffer data){
+		data.order(ByteOrder.LITTLE_ENDIAN);
 		while(data.hasRemaining()){
+			byte[] b = null;
 			ParamConfig config = new ParamConfig();
-			config.param=data.getString();
-			config.value=data.getInt();
+			b = new byte[data.getShort()];data.get(b);config.param=new String(b);
+			b = new byte[data.getShort()];data.get(b);config.value=new String(b);
 			config.color=data.getInt();
 			
 			ParamConfigCache.putConfig(config);

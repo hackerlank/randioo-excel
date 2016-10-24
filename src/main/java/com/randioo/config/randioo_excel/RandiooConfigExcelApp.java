@@ -26,30 +26,45 @@ import com.randioo.config.randioo_excel.util.FileUtils;
 public class RandiooConfigExcelApp {
 	public static void main(String[] args) throws Exception {
 
-//		Map<String, String> keyValueMap = new HashMap<>();
-//		for (int i = 0; i < args.length; i++) {
-//			String[] keyValue = args[i].split("=");
-//			keyValueMap.put(keyValue[0], keyValue[1]);
-//		}
-//
-//		if (!check(keyValueMap))
-//			return;
+		if (args.length == 0) {
+			String command = "config_url=./xml/config.xml"
+					+ " java_template_url=./template/templateJava.txt"
+					+ " as_template_url=./template/templateAS.txt"
+					+ " excel_url=./excelFile"
+					+ " out_url=./out"
+					+ " po=config"
+					+ " bytes_varname=data";
+			args = command.split(" ");
+		}
+		// config_url=./xml/config.xml
+		// java_template_url=./template/templateJava.txt
+		// as_template_url=./template/templateAS.txt excel_url=./excelFile
+		// out_url=./out po=config bytes_varname=data
 
-		 Constant.CONFIG_URL = "./xml/config.xml";
-		 Constant.TEMPLATE_JAVA_URL = "./template/templateJava.txt";
-		 Constant.TEMPLATE_AS_URL = "./template/templateAS.txt";
-		 Constant.EXCEL_URL = "./excelFile";
-		 Constant.OUTPUT_URL = "./out";
-		 Constant.PO = "config";
-		 Constant.BYTES_VAR_NAME = "data";
+		 Map<String, String> keyValueMap = new HashMap<>();
+		 for (int i = 0; i < args.length; i++) {
+		 String[] keyValue = args[i].split("=");
+		 keyValueMap.put(keyValue[0], keyValue[1]);
+		 }
+		
+		 if (!check(keyValueMap))
+		 return;
 
-//		Constant.CONFIG_URL = keyValueMap.get("config_url");
-//		Constant.TEMPLATE_JAVA_URL = keyValueMap.get("java_template_url");
-//		Constant.TEMPLATE_AS_URL = keyValueMap.get("as_template_url");
-//		Constant.EXCEL_URL = keyValueMap.get("excel_url");
-//		Constant.OUTPUT_URL = keyValueMap.get("out_url");
-//		Constant.PO = keyValueMap.get("po");
-//		Constant.BYTES_VAR_NAME = keyValueMap.get("bytes_varname");
+//		Constant.CONFIG_URL = "./xml/config.xml";
+//		Constant.TEMPLATE_JAVA_URL = "./template/templateJava.txt";
+//		Constant.TEMPLATE_AS_URL = "./template/templateAS.txt";
+//		Constant.EXCEL_URL = "./excelFile";
+//		Constant.OUTPUT_URL = "./out";
+//		Constant.PO = "config";
+//		Constant.BYTES_VAR_NAME = "data";
+
+		 Constant.CONFIG_URL = keyValueMap.get("config_url");
+		 Constant.TEMPLATE_JAVA_URL = keyValueMap.get("java_template_url");
+		 Constant.TEMPLATE_AS_URL = keyValueMap.get("as_template_url");
+		 Constant.EXCEL_URL = keyValueMap.get("excel_url");
+		 Constant.OUTPUT_URL = keyValueMap.get("out_url");
+		 Constant.PO = keyValueMap.get("po");
+		 Constant.BYTES_VAR_NAME = keyValueMap.get("bytes_varname");
 
 		createCode();
 
@@ -94,6 +109,7 @@ public class RandiooConfigExcelApp {
 		Iterator<Element> nodeIt = root.elementIterator();
 		while (nodeIt.hasNext()) {
 			NodeConfig node = new NodeConfig(nodeIt.next());
+			System.out.println(node.className);
 			ConfigParser parser = new ConfigParser(node, Constant.EXCEL_URL);
 
 			Data data = parser.getData();

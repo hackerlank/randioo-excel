@@ -2,6 +2,7 @@ package com.randioo.config.randioo_excel.po;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,6 +37,7 @@ public class ConfigParser {
 			String statement = MessageFormat.format(parser.getDeclareFormat(config), config.code);
 			sb.append(comment).append(flag).append(statement).append(flag);
 		}
+		
 
 		return sb.toString();
 	}
@@ -48,7 +50,7 @@ public class ConfigParser {
 			String statement = MessageFormat.format(format, targetVarName, config.code, dataVarName);
 			sb.append(statement).append(flag);
 		}
-
+		
 		return sb.toString();
 	}
 
@@ -103,42 +105,36 @@ public class ConfigParser {
 	private void pushData(Data data, String type, Cell cell) {
 		switch (type) {
 		case "int": {
-			int value = cell.getCellType() == Cell.CELL_TYPE_STRING ? Integer.parseInt(cell.getStringCellValue())
-					: (int) cell.getNumericCellValue();
+			int value = cell.getCellType() == Cell.CELL_TYPE_STRING ? Integer.parseInt(cell.getStringCellValue()) : (int) cell
+					.getNumericCellValue();
 			data.putInt(value);
 		}
 
 			break;
 		case "string": {
-			String value = cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue() + ""
-					: cell.getStringCellValue();
+			String value = cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue() + "" : cell
+					.getStringCellValue();
 			data.putString(value);
 		}
 
 			break;
 		case "short": {
-			short value = cell.getCellType() == Cell.CELL_TYPE_STRING ? Short.parseShort(cell.getStringCellValue())
-					: (short) cell.getNumericCellValue();
+			short value = cell.getCellType() == Cell.CELL_TYPE_STRING ? Short.parseShort(cell.getStringCellValue()) : (short) cell
+					.getNumericCellValue();
 			data.putShort(value);
 		}
 
 			break;
-		case "bool": {
-			int value = cell.getCellType() == Cell.CELL_TYPE_STRING ? Integer.parseInt(cell.getStringCellValue())
-					: (int) cell.getNumericCellValue();
-			boolean v = value == 1;
-			data.putBoolean(v);
-		}
-			break;
 		case "double": {
-			double value = cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue()
-					: Double.parseDouble(cell.getStringCellValue());
+			double value = cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue() : Double
+					.parseDouble(cell.getStringCellValue());
 			data.putDouble(value);
 		}
 			break;
 		case "byte": {
-			byte v = Byte.parseByte(cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue() + ""
-					: cell.getStringCellValue());
+			byte v = Byte
+					.parseByte(cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue() + "" : cell
+							.getStringCellValue());
 			data.putByte(v);
 		}
 

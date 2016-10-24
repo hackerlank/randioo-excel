@@ -37,7 +37,7 @@ item节点:
 -->
 	<node type="client" xlsx="parameter.xlsx" page="参数" key="param" out="parameter.tbl" code="ParamConfig">
 	<item type="string" name="参数项" code="param" />
-	<item type="int" name="性别" code="value" replace="constant.xlsx|性别|性别|值" />
+	<item type="string" name="性别" code="value" replace="constant.xlsx|性别|性别|值" />
 	<item type="int" name="颜色" code="color" replace="constant.xlsx|品质|颜色|值"/>
 </node>
 	

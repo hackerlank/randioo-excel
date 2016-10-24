@@ -48,6 +48,7 @@ public abstract class LanguageParser implements LanguageTypeParser, LanguageStat
 	public String getComment(ItemConfig item) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(item.comment != null ? item.comment : item.name);
+		
 		return sb.toString();
 	}
 

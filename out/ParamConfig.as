@@ -7,7 +7,7 @@
 		/**参数项*/
 		public var param:String;
 		/**性别*/
-		public var value:int;
+		public var value:String;
 		/**颜色*/
 		public var color:int;
 			
@@ -15,7 +15,7 @@
 			while(data.hasRemaining()){
 				var config:ParamConfig = new ParamConfig();
 				config.param=data.readUTFBytes(bytes.readUnsignedShort());
-				config.value=data.readInt();
+				config.value=data.readUTFBytes(bytes.readUnsignedShort());
 				config.color=data.readInt();
 				
 				ParamConfigCache.putConfig(config);

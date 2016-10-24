@@ -55,8 +55,9 @@ public class FileUtils {
 		return null;
 	}
 
-	public static Data getData(String path) throws IOException {
+	public static byte[] readBytes(String path) throws IOException {
 		File f = new File(path);
+		@SuppressWarnings("resource")
 		FileInputStream fis = new FileInputStream(f);
 		List<Byte> list = new ArrayList<>();
 		byte[] buffer = new byte[1024];
@@ -70,7 +71,7 @@ public class FileUtils {
 		for (int i = 0; i < result.length; i++) {
 			result[i] = list.get(i);
 		}
-		return new Data(result);
+		return result;
 	}
 
 	public static void writeFile(String path, String code) throws IOException {
