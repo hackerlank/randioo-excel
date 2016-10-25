@@ -60,6 +60,9 @@ public class ActionScriptParser extends LanguageParser {
 		case "int":
 			sb.append("Int();");
 			break;
+		case "short":
+			sb.append("Short();");
+			break;
 		}
 
 		return sb.toString();
@@ -87,5 +90,29 @@ public class ActionScriptParser extends LanguageParser {
 	public String getDeclareBrace() {
 		// TODO Auto-generated method stub
 		return "\n\t\t";
+	}
+
+	@Override
+	public String getDataStructureClass(String key) {
+		// TODO Auto-generated method stub
+		String str = "";
+		if (key == null || key.equals("")) {
+			str = "Vector.<{0}>";
+		} else {
+			str = "Dictionary";
+		}
+		return str;
+	}
+
+	@Override
+	public String getDataStructureAddMethod(String key) {
+		// TODO Auto-generated method stub
+		String str = "";
+		if (key == null || key.equals("")) {
+			str = ".push({1});";
+		} else {
+			str = "[{1}.{0}]={1};";
+		}
+		return str;
 	}
 }

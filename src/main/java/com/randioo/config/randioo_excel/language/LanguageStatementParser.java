@@ -10,4 +10,8 @@ public interface LanguageStatementParser {
 	public String getDeclareBrace();
 
 	public String getAssignBrace();
+	
+	public String getDataStructureClass(String key);
+	
+	public String getDataStructureAddMethod(String key);
 }

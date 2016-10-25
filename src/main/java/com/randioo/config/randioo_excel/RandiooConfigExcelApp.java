@@ -1,23 +1,10 @@
 package com.randioo.config.randioo_excel;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
-import com.randioo.config.randioo_excel.language.LanguageParser;
-import com.randioo.config.randioo_excel.language.actionscript.ActionScriptParser;
-import com.randioo.config.randioo_excel.language.java.JavaParser;
-import com.randioo.config.randioo_excel.po.ConfigParser;
-import com.randioo.config.randioo_excel.po.Data;
-import com.randioo.config.randioo_excel.po.NodeConfig;
-import com.randioo.config.randioo_excel.util.FileUtils;
+import com.randioo.config.randioo_excel.service.Service;
+import com.randioo.config.randioo_excel.service.ServiceImpl;
 
 /**
  * Hello world!
@@ -26,48 +13,76 @@ import com.randioo.config.randioo_excel.util.FileUtils;
 public class RandiooConfigExcelApp {
 	public static void main(String[] args) throws Exception {
 
-		if (args.length == 0) {
-			String command = "config_url=./xml/config.xml"
-					+ " java_template_url=./template/templateJava.txt"
-					+ " as_template_url=./template/templateAS.txt"
-					+ " excel_url=./excelFile"
-					+ " out_url=./out"
-					+ " po=config"
-					+ " bytes_varname=data";
+		if (args.length != 0) {
+			String command = "config_url=./xml/config.xml" + " java_template_url=./template/templateJava.txt"
+					+ " as_template_url=./template/templateAS.txt" + " excel_url=./excelFile" + " data_url=./out"
+					+ " po_var_name=config" + " bytes_var_name=data";
 			args = command.split(" ");
+
+			Map<String, String> keyValueMap = new HashMap<>();
+			for (int i = 0; i < args.length; i++) {
+				String[] keyValue = args[i].split("=");
+				keyValueMap.put(keyValue[0], keyValue[1]);
+			}
+
+			if (!check(keyValueMap))
+				return;
+
+			Constant.CONFIG_URL = keyValueMap.get("config_url");
+			Constant.TEMPLATE_JAVA_URL = keyValueMap.get("java_template_url");
+			Constant.TEMPLATE_AS_URL = keyValueMap.get("as_template_url");
+			Constant.EXCEL_URL = keyValueMap.get("excel_url");
+			Constant.OUTPUT_URL = keyValueMap.get("data_url");
+			Constant.PO = keyValueMap.get("po_var_name");
+			Constant.BYTES_VAR_NAME = keyValueMap.get("bytes_var_name");
+
+			Service service = new ServiceImpl();
+			service.createCode();
+			Command.exeCmd(Constant.OUTPUT_URL, Constant.OUTPUT_URL, "tbl");
+		} else {
+			showUI();
 		}
-		// config_url=./xml/config.xml
-		// java_template_url=./template/templateJava.txt
-		// as_template_url=./template/templateAS.txt excel_url=./excelFile
-		// out_url=./out po=config bytes_varname=data
 
-		 Map<String, String> keyValueMap = new HashMap<>();
-		 for (int i = 0; i < args.length; i++) {
-		 String[] keyValue = args[i].split("=");
-		 keyValueMap.put(keyValue[0], keyValue[1]);
-		 }
-		
-		 if (!check(keyValueMap))
-		 return;
+	}
+	
+	public static void showUI(){
+		/* Set the Nimbus look and feel */
+		// <editor-fold defaultstate="collapsed"
+		// desc=" Look and feel setting code (optional) ">
+		/*
+		 * If Nimbus (introduced in Java SE 6) is not available, stay with the
+		 * default look and feel. For details see
+		 * http://download.oracle.com/javase
+		 * /tutorial/uiswing/lookandfeel/plaf.html
+		 */
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(RandiooExcelFrame.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(RandiooExcelFrame.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(RandiooExcelFrame.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(RandiooExcelFrame.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		}
+		// </editor-fold>
 
-//		Constant.CONFIG_URL = "./xml/config.xml";
-//		Constant.TEMPLATE_JAVA_URL = "./template/templateJava.txt";
-//		Constant.TEMPLATE_AS_URL = "./template/templateAS.txt";
-//		Constant.EXCEL_URL = "./excelFile";
-//		Constant.OUTPUT_URL = "./out";
-//		Constant.PO = "config";
-//		Constant.BYTES_VAR_NAME = "data";
-
-		 Constant.CONFIG_URL = keyValueMap.get("config_url");
-		 Constant.TEMPLATE_JAVA_URL = keyValueMap.get("java_template_url");
-		 Constant.TEMPLATE_AS_URL = keyValueMap.get("as_template_url");
-		 Constant.EXCEL_URL = keyValueMap.get("excel_url");
-		 Constant.OUTPUT_URL = keyValueMap.get("out_url");
-		 Constant.PO = keyValueMap.get("po");
-		 Constant.BYTES_VAR_NAME = keyValueMap.get("bytes_varname");
-
-		createCode();
-
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new RandiooExcelFrame().setVisible(true);
+			}
+		});
 	}
 
 	public static boolean check(Map<String, String> map) {
@@ -76,9 +91,9 @@ public class RandiooConfigExcelApp {
 		flag = check2(map, "java_template_url", flag);
 		flag = check2(map, "as_template_url", flag);
 		flag = check2(map, "excel_url", flag);
-		flag = check2(map, "out_url", flag);
-		flag = check2(map, "po", flag);
-		flag = check2(map, "bytes_varname", flag);
+		flag = check2(map, "data_url", flag);
+		flag = check2(map, "po_var_name", flag);
+		flag = check2(map, "bytes_var_name", flag);
 
 		return flag;
 	}
@@ -95,43 +110,6 @@ public class RandiooConfigExcelApp {
 
 	}
 
-	public static void createCode() throws IOException, DocumentException {
-		String templateJavaStr = FileUtils.readContent(Constant.TEMPLATE_JAVA_URL);
-		String templateASStr = FileUtils.readContent(Constant.TEMPLATE_AS_URL);
-
-		SAXReader sax = new SAXReader();
-		// Step 1 目录
-		Document doc = sax.read(Constant.CONFIG_URL);
-		Element root = doc.getRootElement();
-
-		JavaParser javaParser = new JavaParser();
-		ActionScriptParser asParser = new ActionScriptParser();
-		Iterator<Element> nodeIt = root.elementIterator();
-		while (nodeIt.hasNext()) {
-			NodeConfig node = new NodeConfig(nodeIt.next());
-			System.out.println(node.className);
-			ConfigParser parser = new ConfigParser(node, Constant.EXCEL_URL);
-
-			Data data = parser.getData();
-			FileUtils.writeData(Constant.OUTPUT_URL, node.out, data.build());
-
-			createLanguageCode(templateJavaStr, javaParser, node, parser);
-			createLanguageCode(templateASStr, asParser, node, parser);
-		}
-	}
-
-	private static void createLanguageCode(String templateJavaStr, LanguageParser languageParser, NodeConfig node,
-			ConfigParser parser) throws IOException {
-		String assign = parser.parseAssignment(Constant.PO, Constant.BYTES_VAR_NAME, languageParser,
-				languageParser.getAssignBrace());
-		String declare = parser.parseDeclare(languageParser, languageParser.getDeclareBrace());
-
-		String result = templateJavaStr.replace("$URL", node.out).replace("$PROP", declare)
-				.replace("$CLASS_NAME", node.className).replace("$ASSIGN", assign).replace("$PO", Constant.PO)
-				.replace("$BYTES_VAR_NAME", Constant.BYTES_VAR_NAME);
-
-		File file = FileUtils.createFile(Constant.OUTPUT_URL, node.code + languageParser.getPrefix());
-		FileUtils.writeFile(Constant.OUTPUT_URL + FileUtils.fileSplit + file.getName(), result);
-	}
+	
 
 }

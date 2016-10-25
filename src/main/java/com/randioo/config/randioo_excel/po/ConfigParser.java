@@ -53,6 +53,20 @@ public class ConfigParser {
 		
 		return sb.toString();
 	}
+	
+	public String parseDataStructure(LanguageParser parser){
+		StringBuilder sb = new StringBuilder();
+		String format = parser.getDataStructureClass(node.key);
+		sb.append(MessageFormat.format(format,node.className));
+		return sb.toString();
+	}
+	
+	public String parseDataStructureAddMethod(LanguageParser parser, String po) {
+		StringBuilder sb = new StringBuilder();
+		String format = parser.getDataStructureAddMethod(node.key);
+		sb.append(MessageFormat.format(format, node.key, po));
+		return sb.toString();
+	}
 
 	public Data getData() {
 		List<ItemConfig> itemConfigList = node.itemList;

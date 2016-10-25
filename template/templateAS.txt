@@ -5,11 +5,13 @@
 	public class $CLASS_NAME{
 		public static final String urlKey="$URL";
 		$PROP	
-		static public function parse($BYTES_VAR_NAME:ByteArray):void{
+		static public function parse($BYTES_VAR_NAME:ByteArray):$DIC_TYPE{
+			var dic:$DIC_TYPE=new $DIC_TYPE();
 			while($BYTES_VAR_NAME.hasRemaining()){
 				var $PO:$CLASS_NAME = new $CLASS_NAME();
 				$ASSIGN
-				$CLASS_NAMECache.putConfig($PO);
+				dic$DIC_ADD
 			}
+			return dic;
 		}
 }
