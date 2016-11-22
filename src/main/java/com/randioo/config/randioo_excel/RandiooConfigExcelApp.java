@@ -38,7 +38,7 @@ public class RandiooConfigExcelApp {
 
 			Service service = new ServiceImpl();
 			service.createCode();
-			Command.exeCmd(Constant.OUTPUT_URL, Constant.OUTPUT_URL, "tbl");
+//			Command.exeCmd(Constant.OUTPUT_URL, Constant.OUTPUT_URL, "tbl");
 		} else {
 			showUI();
 		}

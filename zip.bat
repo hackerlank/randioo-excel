@@ -1,10 +1,14 @@
-echo off
 set input=%1%
 set output=%2%
-set prefix=rand
+set prefix=%3%
 
-for %%i in (%input%/*.%prefix%) do (
-7za a %output%/assets.zip %input%/%%~ni.%prefix%
-)
+mkdir %input%
+mkdir %output%
 
-exit
+rem for %%i in (%input%/*.%prefix%) do (
+rem 7za a %output%/assets.zip %input%/%%~ni.%prefix%
+rem )
+
+7za a %output%/assets.zip %input%/*.%prefix%
+
+rem exit
