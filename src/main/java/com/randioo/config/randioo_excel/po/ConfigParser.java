@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.microsoft.schemas.office.visio.x2012.main.CellType;
 import com.randioo.config.randioo_excel.Constant;
 import com.randioo.config.randioo_excel.language.LanguageParser;
 import com.randioo.config.randioo_excel.util.FileUtils;
@@ -75,10 +76,16 @@ public class ConfigParser {
 		Data data = new Data();
 		while (rowIt.hasNext()) {
 			Row row = rowIt.next();
-			String value = row.getCell(0).getStringCellValue();
+			String type = itemConfigList.get(0).type;
+//			String value = row.getCell(0).getStringCellValue();
+//			// 查看是否有下行
+//			if (value == null || value.equals(""))
+//				break;
+			
 			// 查看是否有下行
-			if (value == null || value.equals(""))
+			if(!hasNextLine(type, row.getCell(0))){
 				break;
+			}
 
 			for (int i = 0; i < itemConfigList.size(); i++) {
 				ItemConfig itemConfig = itemConfigList.get(i);
@@ -154,6 +161,24 @@ public class ConfigParser {
 
 			break;
 		}
+	}
+	
+	private boolean hasNextLine(String type, Cell cell) {		
+		if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+			if (type.equals("int") || type.equals("short") || type.equals("double") || type.equals("byte")) {
+				return false;
+			}
+
+			if (type.equals("string")) {
+				String str = cell.getStringCellValue().trim();
+				if (str == null || str.equals("")) {
+					return false;
+				}
+			}
+
+		}
+		return true;
+
 	}
 
 	private static Map<String, Integer> initColumns(Row row) {

@@ -14,10 +14,10 @@ public class RandiooConfigExcelApp {
 	public static void main(String[] args) throws Exception {
 
 		if (args.length != 0) {
-			String command = "config_url=./xml/config.xml" + " java_template_url=./template/templateJava.txt"
-					+ " as_template_url=./template/templateAS.txt" + " excel_url=./excelFile" + " data_url=./out"
-					+ " po_var_name=config" + " bytes_var_name=data";
-			args = command.split(" ");
+//			String command = "config_url=./xml/config.xml" + " java_template_url=./template/templateJava.txt"
+//					+ " as_template_url=./template/templateAS.txt" + " excel_url=./excelFile" + " data_url=./out"
+//					+ " po_var_name=config" + " bytes_var_name=data";
+//			args = command.split(" ");
 
 			Map<String, String> keyValueMap = new HashMap<>();
 			for (int i = 0; i < args.length; i++) {
@@ -38,7 +38,7 @@ public class RandiooConfigExcelApp {
 
 			Service service = new ServiceImpl();
 			service.createCode();
-//			Command.exeCmd(Constant.OUTPUT_URL, Constant.OUTPUT_URL, "tbl");
+			Command.exeCmd(Constant.OUTPUT_URL, Constant.OUTPUT_URL, "tbl");
 		} else {
 			showUI();
 		}
