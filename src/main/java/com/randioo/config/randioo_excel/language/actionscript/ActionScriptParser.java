@@ -1,5 +1,6 @@
 package com.randioo.config.randioo_excel.language.actionscript;
 
+import com.randioo.config.randioo_excel.Constant;
 import com.randioo.config.randioo_excel.language.LanguageParser;
 
 public class ActionScriptParser extends LanguageParser {
@@ -55,7 +56,7 @@ public class ActionScriptParser extends LanguageParser {
 		sb.append("{0}.{1}={2}.read");
 		switch (valueType) {
 		case "string":
-			sb.append("UTFBytes(bytes.readUnsignedShort());");
+			sb.append("UTFBytes("+Constant.BYTES_VAR_NAME+".readUnsignedShort());");
 			break;
 		case "int":
 			sb.append("Int();");

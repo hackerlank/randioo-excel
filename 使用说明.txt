@@ -1,6 +1,0 @@
-zip.bat不用点击
-将资源文件放入excelFile,template,xml之后，点击start.bat
-
-流程：
-1.策划将文件生成，并上传out文件夹（该文件夹会在程序处理完毕后自动生成）
-2.客户端点击as_config_import.bat     服务端点击java_config_import.bat
