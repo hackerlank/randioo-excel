@@ -9,4 +9,4 @@ mkdir %assets_zip_target_dir%
 set source_dir=.\out
 
 copy /y %source_dir%\*.java %code_target_dir%
-copy /y %source_dir%\*.tbl %assets_target_dir%
+copy /y %source_dir%\*.cfg %assets_zip_target_dir%
