@@ -5,6 +5,11 @@ import java.util.List;
 
 import org.dom4j.Element;
 
+/**
+ * 每个节点进行实例化
+ * @author wcy 2016年12月15日
+ *
+ */
 public class NodeConfig {
 	public final String xlsx;
 	public final String page;
@@ -22,7 +27,7 @@ public class NodeConfig {
 		this.key = element.attributeValue("key");
 		this.out = element.attributeValue("out");
 		this.code = element.attributeValue("code");
-		List elements = element.elements("item");
+		List<?> elements = element.elements("item");
 		for (int i = 0; i < elements.size(); i++) {
 			itemList.add(new ItemConfig((Element) elements.get(i)));
 		}
