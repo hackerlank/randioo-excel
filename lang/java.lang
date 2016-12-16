@@ -1,0 +1,24 @@
+int=int
+double=double
+short=short
+byte=byte
+bool=boolean
+string=String
+
+declareInt=public ${TYPE} ${CODE};
+declareDouble=public ${TYPE} ${CODE};
+declareShort=public ${TYPE} ${CODE};
+declareByte=public ${TYPE} ${CODE};
+declareBool=public ${TYPE} ${CODE};
+declareString=public ${TYPE} ${CODE};
+
+assignmentInt=${CONFIG}.${CODE}=${BUFFER}.getInt();
+assignmentDouble=${CONFIG}.${CODE}=${BUFFER}.getDouble();
+assignmentShort=${CONFIG}.${CODE}=${BUFFER}.getShort();
+assignmentByte=${CONFIG}.${CODE}=${BUFFER}.getByte();
+assignmentBool=${CONFIG}.${CODE}=${BUFFER}.getBoolean();
+assignmentString=b = new byte[${BUFFER}.getShort()];${BUFFER}.get(b);${CONFIG}.${CODE}=new String(b);
+
+prefix=.java
+
+comment=/**${COMMENT}*/
