@@ -1,15 +1,19 @@
 package com.randioo.config.randioo_excel.po;
 
 import org.dom4j.Element;
-
-public class ItemConfig {
+/**
+ * 类的属性值
+ * @author wcy 2016年12月16日
+ *
+ */
+public class FieldConfig {
 	public final String type;
 	public final String name;
 	public final String code;
 	public final String comment;
 	public final String replace;
 
-	public ItemConfig(Element element) {
+	public FieldConfig(Element element) {
 		this.type = element.attributeValue("type");
 		this.name = element.attributeValue("name");
 		this.code = element.attributeValue("code");

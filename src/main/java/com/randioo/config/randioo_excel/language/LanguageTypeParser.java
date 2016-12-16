@@ -26,7 +26,7 @@ public interface LanguageTypeParser {
 	 * 
 	 * @return
 	 */
-	public String getBoolean();
+	public String getBool();
 
 	/**
 	 * 短整型（2个字节）

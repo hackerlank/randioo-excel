@@ -15,7 +15,7 @@ import com.randioo.config.randioo_excel.language.actionscript.ActionScriptParser
 import com.randioo.config.randioo_excel.language.java.JavaParser;
 import com.randioo.config.randioo_excel.po.ConfigParser;
 import com.randioo.config.randioo_excel.po.Data;
-import com.randioo.config.randioo_excel.po.NodeConfig;
+import com.randioo.config.randioo_excel.po.ClassConfig;
 import com.randioo.config.randioo_excel.util.FileUtils;
 
 
@@ -33,7 +33,7 @@ public class ServiceImpl implements Service{
 		ActionScriptParser asParser = new ActionScriptParser();
 		Iterator<Element> nodeIt = root.elementIterator();
 		while (nodeIt.hasNext()) {
-			NodeConfig node = new NodeConfig(nodeIt.next());
+			ClassConfig node = new ClassConfig(nodeIt.next());
 			System.out.println(node.className);
 			ConfigParser parser = new ConfigParser(node, Constant.EXCEL_URL);
 
@@ -45,7 +45,7 @@ public class ServiceImpl implements Service{
 		}
 	}
 
-	private void createLanguageCode(String templateJavaStr, LanguageParser languageParser, NodeConfig node,
+	private void createLanguageCode(String templateJavaStr, LanguageParser languageParser, ClassConfig node,
 			ConfigParser parser) throws IOException {
 		String assign = parser.parseAssignment(Constant.PO, Constant.BYTES_VAR_NAME, languageParser,
 				languageParser.getAssignBrace());

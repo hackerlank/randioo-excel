@@ -1,8 +1,12 @@
 package com.randioo.config.randioo_excel;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 
+import com.randioo.config.randioo_excel.cache.StringCache;
 import com.randioo.config.randioo_excel.service.Service;
 import com.randioo.config.randioo_excel.service.ServiceImpl;
 
@@ -13,6 +17,9 @@ import com.randioo.config.randioo_excel.service.ServiceImpl;
 public class RandiooConfigExcelApp {
 	public static void main(String[] args) throws Exception {
 
+		//字符串池初始化
+		StringCache.StringCacheInit();
+		/*
 //		if (args.length != 0) {
 			String command = "config_url=./xml/config.xml" + " java_template_url=./template/templateJava.txt"
 					+ " as_template_url=./template/templateAS.txt" + " excel_url=./excelFile" + " data_url=./out"
@@ -42,7 +49,13 @@ public class RandiooConfigExcelApp {
 //		} else {
 //			showUI();
 //		}
-
+*/
+		Properties prop = new Properties();
+		prop.load(new FileInputStream("./lang/java.lang"));
+		for(Entry<Object, Object> entrySet:prop.entrySet()){
+			System.out.println(entrySet.getKey()+" "+entrySet.getValue());
+			
+		}
 	}
 	
 	public static void showUI(){

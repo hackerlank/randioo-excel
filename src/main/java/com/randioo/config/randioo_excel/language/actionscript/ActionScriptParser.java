@@ -18,7 +18,7 @@ public class ActionScriptParser extends LanguageParser {
 	}
 
 	@Override
-	public String getBoolean() {
+	public String getBool() {
 		// TODO Auto-generated method stub
 		return "Boolean";
 	}
@@ -45,7 +45,7 @@ public class ActionScriptParser extends LanguageParser {
 	public String declareStatementFormatter(String valueType) {
 		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder();
-		sb.append("public var {0}:").append(get(valueType)).append(";");
+		sb.append("public var {0}:").append(getLanguageBasicType(valueType)).append(";");
 		return sb.toString();
 	}
 

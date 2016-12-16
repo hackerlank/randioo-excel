@@ -2,7 +2,6 @@ package com.randioo.config.randioo_excel.po;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,38 +14,54 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.microsoft.schemas.office.visio.x2012.main.CellType;
 import com.randioo.config.randioo_excel.Constant;
+import com.randioo.config.randioo_excel.Macro;
 import com.randioo.config.randioo_excel.language.LanguageParser;
 import com.randioo.config.randioo_excel.util.FileUtils;
-
+/**
+ * 配置表转换器
+ * @author wcy 2016年12月16日
+ *
+ */
 public class ConfigParser {
 	private Sheet sheet;
-	private NodeConfig node;
+	private ClassConfig node;
 
-	public ConfigParser(NodeConfig node, String excelPath) {
+	/**
+	 * 
+	 * @param node 节点
+	 * @param excelPath excel文件路径（不带文件名）
+	 */
+	public ConfigParser(ClassConfig node, String excelPath) {
 		this.node = node;
 		File f = new File(excelPath + FileUtils.fileSplit + node.xlsx);
 		this.sheet = this.getSheet(f, node.page);
 	}
 
+	/**
+	 * 声明成员变量
+	 * @param parser
+	 * @param flag
+	 * @return
+	 * @author wcy 2016年12月16日
+	 */
 	public String parseDeclare(LanguageParser parser, String flag) {
-		List<ItemConfig> itemConfigList = node.itemList;
+		List<FieldConfig> itemConfigList = node.itemList;
 		StringBuilder sb = new StringBuilder();
-		for (ItemConfig config : itemConfigList) {
-			String comment = MessageFormat.format(parser.getCommentFormat(), parser.getComment(config));
-			String statement = MessageFormat.format(parser.getDeclareFormat(config), config.code);
-			sb.append(comment).append(flag).append(statement).append(flag);
+		for (FieldConfig config : itemConfigList) {
+			String comment = MessageFormat.format(parser.getCommentFormat(),
+					config.comment != null ? config.comment : config.name);
+			String statement = parser.getDeclareFormat(config).replace(Macro.$CODE, config.code);
+			sb.append(comment).append(Macro.$DECLARE_BRACE).append(statement).append(Macro.$DECLARE_BRACE);
 		}
-		
 
 		return sb.toString();
 	}
 
 	public String parseAssignment(String targetVarName, String dataVarName, LanguageParser parser, String flag) {
-		List<ItemConfig> itemConfigList = node.itemList;
+		List<FieldConfig> itemConfigList = node.itemList;
 		StringBuilder sb = new StringBuilder();
-		for (ItemConfig config : itemConfigList) {
+		for (FieldConfig config : itemConfigList) {
 			String format = parser.getAssignmentFormat(config);
 			String statement = MessageFormat.format(format, targetVarName, config.code, dataVarName);
 			sb.append(statement).append(flag);
@@ -70,7 +85,7 @@ public class ConfigParser {
 	}
 
 	public Data getData() {
-		List<ItemConfig> itemConfigList = node.itemList;
+		List<FieldConfig> itemConfigList = node.itemList;
 		Iterator<Row> rowIt = sheet.rowIterator();
 		Map<String, Integer> nameColumnIndexMap = initColumns(rowIt.next());
 		Data data = new Data();
@@ -88,7 +103,7 @@ public class ConfigParser {
 			}
 
 			for (int i = 0; i < itemConfigList.size(); i++) {
-				ItemConfig itemConfig = itemConfigList.get(i);
+				FieldConfig itemConfig = itemConfigList.get(i);
 
 				Cell cell = this.locationCell(row, nameColumnIndexMap, itemConfig);
 				pushData(data, itemConfig.type, cell);
@@ -99,7 +114,7 @@ public class ConfigParser {
 		return data;
 	}
 
-	public Cell locationCell(Row row, Map<String, Integer> nameColumnIndexMap, ItemConfig item) {
+	public Cell locationCell(Row row, Map<String, Integer> nameColumnIndexMap, FieldConfig item) {
 		String columnName = item.name;
 		Cell cell = row.getCell(nameColumnIndexMap.get(columnName));
 		if (item.replace == null) {

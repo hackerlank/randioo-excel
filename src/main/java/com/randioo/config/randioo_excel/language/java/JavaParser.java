@@ -1,6 +1,9 @@
 package com.randioo.config.randioo_excel.language.java;
 
+import com.randioo.config.randioo_excel.BasicType;
+import com.randioo.config.randioo_excel.Macro;
 import com.randioo.config.randioo_excel.language.LanguageParser;
+import com.randioo.config.randioo_excel.util.StringUtils;
 
 public class JavaParser extends LanguageParser {
 
@@ -17,7 +20,7 @@ public class JavaParser extends LanguageParser {
 	}
 
 	@Override
-	public String getBoolean() {
+	public String getBool() {
 		// TODO Auto-generated method stub
 		return "boolean";
 	}
@@ -42,19 +45,17 @@ public class JavaParser extends LanguageParser {
 
 	@Override
 	public String declareStatementFormatter(String valueType) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("public ").append(get(valueType)).append(" {0};");
-
-		return sb.toString();
+		String result = "public ${TYPE} ${CODE};";
+		return result.replace(Macro.$TYPE, getLanguageBasicType(valueType));
 	}
 
 	@Override
 	public String assignmentFormatter(String valueType) {
 		StringBuilder sb = new StringBuilder();
-		if (valueType.equals("string")) {
+		if (valueType.equals(BasicType.STRING)) {
 			sb.append("b = new byte[{2}.getShort()];{2}.get(b);{0}.{1}=new String(b);");
 		} else {
-			sb.append("{0}.{1}={2}.get").append(UpStr(get(valueType))).append("();");
+			sb.append("{0}.{1}={2}.get").append(StringUtils.firstStrToUpperCase(getLanguageBasicType(valueType))).append("();");
 		}
 
 		return sb.toString();
@@ -64,10 +65,6 @@ public class JavaParser extends LanguageParser {
 	public String getCommentFormat() {
 		// TODO Auto-generated method stub
 		return "/**{0}*/";
-	}
-
-	public static String UpStr(String str) {
-		return str.replaceFirst(str.substring(0, 1), str.substring(0, 1).toUpperCase());
 	}
 
 	@Override
