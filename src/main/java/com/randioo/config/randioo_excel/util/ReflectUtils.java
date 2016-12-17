@@ -59,20 +59,44 @@ public class ReflectUtils {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * 获得所有声明的属性
+	 * 
 	 * @param clazz
 	 * @return
 	 * @author wcy 2016年12月16日
 	 */
-	public static Field[] getFields(Class<?> clazz){
+	public static Field[] getFields(Class<?> clazz) {
 		return clazz.getDeclaredFields();
 	}
-	
+
+	/**
+	 * 获得属性值
+	 * 
+	 * @param obj
+	 * @param field
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T getFieldValue(Object obj,Field field){
+	public static <T> T getFieldValue(Object obj, Field field) {
 		try {
-			return (T)field.get(obj);
+			return (T) field.get(obj);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 获得静态属性的值
+	 * 
+	 * @param field
+	 * @return
+	 */
+	public static <T> T getStaticFieldValue(Field field) {
+		try {
+			return (T) field.get(null);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}

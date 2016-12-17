@@ -18,10 +18,15 @@ public class ClassConfig {
 	public final String code;
 	public final String type;
 	public final String className;
+	public final List<String> typeList = new ArrayList<>();
 	public final List<FieldConfig> itemList = new ArrayList<>();
 
 	public ClassConfig(Element element) {
 		this.type = element.attributeValue("type");
+		String[] tempTypeList = type.split(",");
+		for(String tempType:tempTypeList){
+			typeList.add(tempType);
+		}
 		this.xlsx = element.attributeValue("xlsx");
 		this.page = element.attributeValue("page");
 		this.key = element.attributeValue("key");

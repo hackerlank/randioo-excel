@@ -36,7 +36,7 @@ public class ExcelUtils {
 	 * @return
 	 * @author wcy 2016年12月16日
 	 */
-	public static Sheet sheet(String fileName, String path) {
-		return sheet(new File(fileName), path);
+	public static Sheet sheet(String fileName, String page) {
+		return sheet(new File(fileName), page);
 	}
 }
