@@ -46,7 +46,7 @@ declare_brace=\n\t\t
 
 mapVarName=dic
 mapClass=Dictionary
-mapDeclareClass=Dictionary ${DIC_VAR_NAME} = new Dictionary();
+mapDeclareClass=${DIC_VAR_NAME}:Dictionary = new Dictionary();
 mapAddMethod=${DIC_VAR_NAME}[${CONFIG}.${KEY_CODE}]=${CONFIG};
 
 listVarName=vect
