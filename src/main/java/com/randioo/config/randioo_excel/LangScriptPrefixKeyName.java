@@ -9,4 +9,5 @@ package com.randioo.config.randioo_excel;
 public class LangScriptPrefixKeyName {
 	public final static String DECLARE_ = "declare_";
 	public final static String ASSIGNMENT_= "assignment_";
+	public final static String CLASS_="class_";
 }

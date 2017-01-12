@@ -23,7 +23,7 @@ public class RandiooConfigExcelApp {
 		DataCreator dataCreator = new DataCreator();
 		SAXReader sax = new SAXReader();
 
-		Constant.TARGET = args[0];
+		Constant.TARGET = args.length == 0 ? "java" : args[0];
 		Constant.CONFIG_URL = "./xml/config.xml";
 		Constant.EXCEL_URL = "./excelFile";
 		Constant.OUTPUT_URL = "./out";

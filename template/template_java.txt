@@ -13,7 +13,7 @@ public class ${CLASS_NAME}{
 		while(${BUFFER}.hasRemaining()){
 			${CLASS_NAME} ${CONFIG} = new ${CLASS_NAME}();
 			${ASSIGN}
-			${CLASS_NAME}Cache.putConfig(${CONFIG});
+			${CLASS_NAME}Cache.putConfig(${CONFIG});			
 		}
 	}
 }

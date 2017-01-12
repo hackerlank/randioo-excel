@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.randioo.config.randioo_excel.exceptioin.ScriptNotCompleteException;
@@ -93,7 +95,7 @@ public class LangScriptEngine {
 			String statement = props.getProperty(LangScriptPrefixKeyName.DECLARE_ + fieldConfig.type);
 			String type = props.getProperty(fieldConfig.type);
 			// 替换类型和变量名
-			String statement1 = statement.replace(Macro.$TYPE, type).replace(Macro.$CODE, fieldConfig.code);
+			String statement1 = statement.replace(Macro.$BASE_TYPE, type).replace(Macro.$CODE, fieldConfig.code);
 			// 添加注释和语句
 			sb.append(comment1).append(statement1);
 		}
@@ -115,7 +117,7 @@ public class LangScriptEngine {
 			String statement = props.getProperty(LangScriptPrefixKeyName.ASSIGNMENT_ + fieldConfig.type);
 			String type = props.getProperty(fieldConfig.type);
 			// 替换类型和变量名
-			String statement1 = statement.replace(Macro.$TYPE, type).replace(Macro.$CODE, fieldConfig.code);
+			String statement1 = statement.replace(Macro.$BASE_TYPE, type).replace(Macro.$CODE, fieldConfig.code);
 			sb.append(statement1);
 		}
 		return sb.toString();
@@ -149,10 +151,15 @@ public class LangScriptEngine {
 					.replace(Macro.$DIC_ADD, props.getProperty(LangScriptExtensionKeyName.LIST_ADD_METHOD))
 					.replace(Macro.$DIC_VAR_NAME, props.getProperty(LangScriptExtensionKeyName.LIST_VAR_NAME));
 		} else {
+			Map<String,String> keyTypeMap = new HashMap<>();
+			keyTypeMap.put(Macro.$BASE_CLASS_TYPE, LangScriptPrefixKeyName.CLASS_);
+			keyTypeMap.put(Macro.$BASE_TYPE, "");
 			// 获得KeyType
 			for (FieldConfig fieldConfig : config.itemList) {
-				if (config.key.equals(fieldConfig.code)) {
-					KEY_TYPE = props.getProperty(fieldConfig.type);
+				if (config.key.equals(fieldConfig.name)) {
+					// 确认数据结构中的基本类型使用类型
+					String keyTypeUse = props.getProperty(LangScriptExtensionKeyName.KEY_TYPE_USE);
+					KEY_TYPE = props.getProperty(keyTypeMap.get(keyTypeUse) + fieldConfig.type);
 					KEY_CODE = fieldConfig.code;
 					break;
 				}

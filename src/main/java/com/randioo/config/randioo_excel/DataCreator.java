@@ -52,7 +52,12 @@ public class DataCreator {
 
 	public Cell locationCell(Row row, Map<String, Integer> nameColumnIndexMap, FieldConfig item,String excelPath) {
 		String columnName = item.name;
-		Cell cell = row.getCell(nameColumnIndexMap.get(columnName));
+		Cell cell = null;
+		try{
+		cell = row.getCell(nameColumnIndexMap.get(columnName));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		if (item.replace == null) {
 			return cell;
 		}
@@ -148,7 +153,7 @@ public class DataCreator {
 		while (cells.hasNext()) {
 			Cell cell = cells.next();
 			String str = cell.getStringCellValue();
-			if (str == null || str.equals("")) {
+			if (str == null || (str = str.trim()).equals("")) {
 				break;
 			}
 

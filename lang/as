@@ -1,4 +1,4 @@
-#$TYPE = "${TYPE}";                        
+#$TYPE = "${BASE_TYPE}";                        
 #$NAME = "${NAME}";                        
 #$CODE = "${CODE}";                        
 #$COMMENT = "${COMMENT}";                  
@@ -23,12 +23,19 @@ byte=int
 bool=Boolean
 string=String
 
-declare_int=public var ${CODE}:${TYPE};${DECLARE_BRACE}
-declare_double=public var ${CODE}:${TYPE};${DECLARE_BRACE}
-declare_short=public var ${CODE}:${TYPE};${DECLARE_BRACE}
-declare_byte=public var ${CODE}:${TYPE};${DECLARE_BRACE}
-declare_bool=public var ${CODE}:${TYPE};${DECLARE_BRACE}
-declare_string=public var ${CODE}:${TYPE};${DECLARE_BRACE}
+class_int=int
+class_double=Number
+class_short=int
+class_byte=int
+class_bool=Boolean
+class_string=String
+
+declare_int=public var ${CODE}:${BASE_TYPE};${DECLARE_BRACE}
+declare_double=public var ${CODE}:${BASE_TYPE};${DECLARE_BRACE}
+declare_short=public var ${CODE}:${BASE_TYPE};${DECLARE_BRACE}
+declare_byte=public var ${CODE}:${BASE_TYPE};${DECLARE_BRACE}
+declare_bool=public var ${CODE}:${BASE_TYPE};${DECLARE_BRACE}
+declare_string=public var ${CODE}:${BASE_TYPE};${DECLARE_BRACE}
 
 assignment_int=${CONFIG}.${CODE}=${BUFFER}.readInt();${ASSIGNMENT_BRACE}
 assignment_double=${CONFIG}.${CODE}=${BUFFER}.readDouble();${ASSIGNMENT_BRACE}
@@ -38,6 +45,8 @@ assignment_bool=${CONFIG}.${CODE}=${BUFFER}.readBoolean();${ASSIGNMENT_BRACE}
 assignment_string=${CONFIG}.${CODE}=${BUFFER}.readUTFBytes(${BUFFER}.readUnsignedShort());${ASSIGNMENT_BRACE}
 
 prefix=.as
+
+keyTypeUse=${BASE_TYPE}
 
 comment=/** ${COMMENT} */${DECLARE_BRACE}
 

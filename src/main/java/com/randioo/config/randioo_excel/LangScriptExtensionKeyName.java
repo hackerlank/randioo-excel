@@ -13,4 +13,5 @@ public class LangScriptExtensionKeyName {
 	public final static String LIST_ADD_METHOD = "listAddMethod";
 	public final static String ASSIGNMENT_BRACE = "assignment_brace";
 	public final static String DECLARE_BRACE = "declare_brace";
+	public final static String KEY_TYPE_USE = "keyTypeUse";
 }

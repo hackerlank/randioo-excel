@@ -1,4 +1,4 @@
-#$TYPE = "${TYPE}";                        
+#$TYPE = "${BASE_TYPE}";                        
 #$NAME = "${NAME}";                        
 #$CODE = "${CODE}";                        
 #$COMMENT = "${COMMENT}";                  
@@ -17,19 +17,26 @@
 #$DIC_ADD = "${DIC_ADD}";
 #$DIC_VAR_NAME = "${DIC_VAR_NAME}";
 
-int=Integer
-double=Double
-short=Short
-byte=Byte
-bool=Boolean
+int=int
+double=double
+short=short
+byte=byte
+bool=boolean
 string=String
 
-declare_int=public ${TYPE} ${CODE};${DECLARE_BRACE}
-declare_double=public ${TYPE} ${CODE};${DECLARE_BRACE}
-declare_short=public ${TYPE} ${CODE};${DECLARE_BRACE}
-declare_byte=public ${TYPE} ${CODE};${DECLARE_BRACE}
-declare_bool=public ${TYPE} ${CODE};${DECLARE_BRACE}
-declare_string=public ${TYPE} ${CODE};${DECLARE_BRACE}
+class_int=Integer
+class_double=Double
+class_short=Short
+class_byte=Byte
+class_bool=Boolean
+class_string=String
+
+declare_int=public ${BASE_TYPE} ${CODE};${DECLARE_BRACE}
+declare_double=public ${BASE_TYPE} ${CODE};${DECLARE_BRACE}
+declare_short=public ${BASE_TYPE} ${CODE};${DECLARE_BRACE}
+declare_byte=public ${BASE_TYPE} ${CODE};${DECLARE_BRACE}
+declare_bool=public ${BASE_TYPE} ${CODE};${DECLARE_BRACE}
+declare_string=public ${BASE_TYPE} ${CODE};${DECLARE_BRACE}
 
 assignment_int=${CONFIG}.${CODE}=${BUFFER}.getInt();${ASSIGNMENT_BRACE}
 assignment_double=${CONFIG}.${CODE}=${BUFFER}.getDouble();${ASSIGNMENT_BRACE}
@@ -44,6 +51,8 @@ comment=/** ${COMMENT} */${DECLARE_BRACE}
 
 assignment_brace=\n\t\t\t
 declare_brace=\n\t
+
+keyTypeUse=${BASE_CLASS_TYPE}
 
 mapVarName=map
 mapClass=Map<${KEY_TYPE},${CLASS_NAME}>

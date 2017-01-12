@@ -7,7 +7,8 @@ package com.randioo.config.randioo_excel;
  *
  */
 public class Macro {
-	public static final String $TYPE = "${TYPE}";
+	public static final String $BASE_TYPE = "${BASE_TYPE}";
+	public static final String $BASE_CLASS_TYPE = "${BASE_CLASS_TYPE}";
 	public static final String $NAME = "${NAME}";
 	public static final String $CODE = "${CODE}";
 	public static final String $COMMENT = "${COMMENT}";
