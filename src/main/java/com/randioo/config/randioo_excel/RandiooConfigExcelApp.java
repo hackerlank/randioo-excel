@@ -39,8 +39,8 @@ public class RandiooConfigExcelApp {
 		Iterator<Element> nodeIt = root.elementIterator();
 		while (nodeIt.hasNext()) {
 			ClassConfig node = new ClassConfig(nodeIt.next());
-			System.out.println(node.className);
 			if (node.typeList.contains(Constant.TARGET)) {
+				System.out.println(node.className);
 				// 生成代码
 				String result = engine.createCode(node, props, content);
 				// 生成源码文件

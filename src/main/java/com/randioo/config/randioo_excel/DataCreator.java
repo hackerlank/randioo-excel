@@ -14,11 +14,13 @@ import com.randioo.config.randioo_excel.po.ClassConfig;
 import com.randioo.config.randioo_excel.po.Data;
 import com.randioo.config.randioo_excel.po.FieldConfig;
 import com.randioo.config.randioo_excel.po.ReplaceLocation;
+import com.randioo.config.randioo_excel.util.CellValueUtils;
 import com.randioo.config.randioo_excel.util.ExcelUtils;
 import com.randioo.config.randioo_excel.util.FileUtils;
 
 /**
  * 数据生成器
+ * 
  * @author AIM
  *
  */
@@ -41,7 +43,7 @@ public class DataCreator {
 			for (int i = 0; i < itemConfigList.size(); i++) {
 				FieldConfig itemConfig = itemConfigList.get(i);
 
-				Cell cell = this.locationCell(row, nameColumnIndexMap, itemConfig,excelPath);
+				Cell cell = this.locationCell(row, nameColumnIndexMap, itemConfig, excelPath);
 				pushData(data, itemConfig.type, cell);
 			}
 
@@ -50,12 +52,12 @@ public class DataCreator {
 		return data;
 	}
 
-	public Cell locationCell(Row row, Map<String, Integer> nameColumnIndexMap, FieldConfig item,String excelPath) {
+	public Cell locationCell(Row row, Map<String, Integer> nameColumnIndexMap, FieldConfig item, String excelPath) {
 		String columnName = item.name;
 		Cell cell = null;
-		try{
-		cell = row.getCell(nameColumnIndexMap.get(columnName));
-		}catch(Exception e){
+		try {
+			cell = row.getCell(nameColumnIndexMap.get(columnName));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (item.replace == null) {
@@ -71,8 +73,8 @@ public class DataCreator {
 
 		while (rowIt.hasNext()) {
 			Row row1 = rowIt.next();
-			String varString = row1.getCell(columnIndex).getStringCellValue();
-			if (varString.equals(cell.getStringCellValue())) {
+			String varString = CellValueUtils.getCellStringValue(row1.getCell(columnIndex));
+			if (varString.equals(CellValueUtils.getCellStringValue(cell))) {
 				return row1.getCell(valueIndex);
 			}
 		}
@@ -82,35 +84,29 @@ public class DataCreator {
 	private void pushData(Data data, String type, Cell cell) {
 		switch (type) {
 		case BasicType.INT: {
-			int value = cell.getCellType() == Cell.CELL_TYPE_STRING ? Integer.parseInt(cell.getStringCellValue())
-					: (int) cell.getNumericCellValue();
+			int value = (int) CellValueUtils.getCellDoubleValue(cell);
 			data.putInt(value);
 		}
-
 			break;
 		case BasicType.STRING: {
-			String value = cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue() + ""
-					: cell.getStringCellValue();
+			String value = CellValueUtils.getCellStringValue(cell);
 			data.putString(value);
 		}
 
 			break;
 		case BasicType.SHORT: {
-			short value = cell.getCellType() == Cell.CELL_TYPE_STRING ? Short.parseShort(cell.getStringCellValue())
-					: (short) cell.getNumericCellValue();
+			short value = (short) CellValueUtils.getCellDoubleValue(cell);
 			data.putShort(value);
 		}
 
 			break;
 		case BasicType.DOUBLE: {
-			double value = cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue()
-					: Double.parseDouble(cell.getStringCellValue());
+			double value = CellValueUtils.getCellDoubleValue(cell);
 			data.putDouble(value);
 		}
 			break;
 		case BasicType.BYTE: {
-			byte v = Byte.parseByte(cell.getCellType() == Cell.CELL_TYPE_NUMERIC ? cell.getNumericCellValue() + ""
-					: cell.getStringCellValue());
+			byte v = (byte) CellValueUtils.getCellDoubleValue(cell);
 			data.putByte(v);
 		}
 
@@ -120,13 +116,15 @@ public class DataCreator {
 
 	/**
 	 * 是否有下一行
+	 * 
 	 * @param type
 	 * @param cell
 	 * @return
 	 */
 	private boolean hasNextLine(String type, Cell cell) {
 		if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-			if (type.equals(BasicType.INT) || type.equals(BasicType.SHORT) || type.equals(BasicType.DOUBLE) || type.equals(BasicType.BYTE)) {
+			if (type.equals(BasicType.INT) || type.equals(BasicType.SHORT) || type.equals(BasicType.DOUBLE)
+					|| type.equals(BasicType.BYTE)) {
 				return false;
 			}
 
@@ -144,10 +142,11 @@ public class DataCreator {
 
 	/**
 	 * 初始化列表名称
+	 * 
 	 * @param row
 	 * @return
 	 */
-	private static Map<String, Integer> initColumns(Row row) {
+	private Map<String, Integer> initColumns(Row row) {
 		Iterator<Cell> cells = row.cellIterator();
 		Map<String, Integer> nameMap = new HashMap<>();
 		while (cells.hasNext()) {
