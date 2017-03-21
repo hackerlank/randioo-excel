@@ -36,15 +36,24 @@ public class DataCreator {
 			String type = itemConfigList.get(0).type;
 
 			// 查看是否有下行
-			if (!hasNextLine(type, row.getCell(0))) {
+			// if (!hasNextLine(type, row.getCell(0))) {
+			// break;
+			// }
+
+			if (!hasNextLine(row)) {
 				break;
 			}
 
 			for (int i = 0; i < itemConfigList.size(); i++) {
 				FieldConfig itemConfig = itemConfigList.get(i);
-
-				Cell cell = this.locationCell(row, nameColumnIndexMap, itemConfig, excelPath);
-				pushData(data, itemConfig.type, cell);
+				try {
+					Cell cell = this.locationCell(row, nameColumnIndexMap, itemConfig, excelPath);
+					pushData(data, itemConfig.type, cell);
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("error on node code=" + node.code + " item code=" + itemConfig.code + " row count=" + row.getRowNum());
+					System.exit(0);
+				}
 			}
 
 		}
@@ -138,6 +147,31 @@ public class DataCreator {
 		}
 		return true;
 
+	}
+
+	/**
+	 * 是否有下一行
+	 * 
+	 * @param row
+	 * @return
+	 * @author wcy 2017年2月24日
+	 */
+	private boolean hasNextLine(Row row) {
+		Cell cell = row.getCell(0);
+
+		if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+			String value = cell.getStringCellValue();
+			if (value == null) {
+				return false;
+			}
+
+			value = value.trim();
+			if (value.equals("")) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
