@@ -13,6 +13,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import com.randioo.config.randioo_excel.po.ClassConfig;
 import com.randioo.config.randioo_excel.po.Data;
 import com.randioo.config.randioo_excel.po.FieldConfig;
+import com.randioo.config.randioo_excel.po.Location;
+import com.randioo.config.randioo_excel.po.Replace;
 import com.randioo.config.randioo_excel.po.ReplaceLocation;
 import com.randioo.config.randioo_excel.util.CellValueUtils;
 import com.randioo.config.randioo_excel.util.ExcelUtils;
@@ -33,13 +35,8 @@ public class DataCreator {
 		Data data = new Data();
 		while (rowIt.hasNext()) {
 			Row row = rowIt.next();
-			String type = itemConfigList.get(0).type;
 
 			// 查看是否有下行
-			// if (!hasNextLine(type, row.getCell(0))) {
-			// break;
-			// }
-
 			if (!hasNextLine(row)) {
 				break;
 			}
@@ -51,7 +48,8 @@ public class DataCreator {
 					pushData(data, itemConfig.type, cell);
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println("error on node code=" + node.code + " item code=" + itemConfig.code + " row count=" + row.getRowNum());
+					System.out.println("error on node code=" + node.code + " item code=" + itemConfig.code
+							+ " row count=" + row.getRowNum());
 					System.exit(0);
 				}
 			}
@@ -85,6 +83,49 @@ public class DataCreator {
 			String varString = CellValueUtils.getCellStringValue(row1.getCell(columnIndex));
 			if (varString.equals(CellValueUtils.getCellStringValue(cell))) {
 				return row1.getCell(valueIndex);
+			}
+		}
+		return null;
+	}
+
+	public Cell locationCell2(Row row, Map<String, Integer> nameColumnIndexMap, FieldConfig item, String excelPath) {
+		Cell cell = null;
+		try {
+			cell = row.getCell(nameColumnIndexMap.get(item.name));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (item.replace == null) {
+			return cell;
+		}
+
+		Replace replace = new Replace(item.replace);
+		return searchCell(0, replace, excelPath, cell);
+
+	}
+
+	public Cell searchCell(int index, Replace replace, String excelPath, Cell cell) {
+		Location location = replace.locations.get(index);
+		File file = new File(excelPath + FileUtils.fileSplit + location.fileName);
+		Sheet sheet = ExcelUtils.sheet(file, location.page);
+		Iterator<Row> rowIt = sheet.rowIterator();
+		Map<String, Integer> replaceNameColumnIndexMap = this.initColumns(rowIt.next());
+		int columnIndex = replaceNameColumnIndexMap.get(location.columnName);
+		int valueIndex = replaceNameColumnIndexMap.get(location.value);
+
+		while (rowIt.hasNext()) {
+			Row row = rowIt.next();
+			String varString = CellValueUtils.getCellStringValue(row.getCell(columnIndex));
+			if (varString.equals(CellValueUtils.getCellStringValue(cell))) {
+				Cell targetCell = row.getCell(valueIndex);
+				if (index < replace.locations.size() - 1) {
+					index++;
+					targetCell = searchCell(index, replace, excelPath, targetCell);
+				}
+
+				return targetCell;
+
 			}
 		}
 		return null;
