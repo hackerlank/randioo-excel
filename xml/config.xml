@@ -54,5 +54,46 @@ item节点:
         <item type="int" name="reward" code="reward" comment="奖励"/>
         <item type="int" name="star" code="star" comment="星数"/>
 	</node>
+	<node type="java" xlsx="bank.xlsx" page="理财项目" out="bank.tbl" code="BankItemConfig">
+		<item type="int" name="ID" code="itemId" comment="理财项目编号"/>
+		<item type="int" name="价格" code="price" comment="价格"/>
+		<item type="int" name="收益" code="income" comment="收益"/>
+		<item type="int" name="步数" code="step" comment="步数"/>
+	</node>
 	
+	<node type="java" xlsx="道具.xlsx" page="基础资源品质" out="base_resource.tbl" code="BaseResourceQualityConfig">
+		<item type="int" name="ID" code="id" comment="资源id"/>
+		<item type="int" name="基础物品名称" code="sameResourceId" replace="道具.xlsx|基础资源|基础资源名称|基础物品编号" comment="基础资源id(不区分品质)"/>
+		<item type="int" name="基础物品名称" code="plantOrAnimal" replace="道具.xlsx|基础资源|基础资源名称|植物还是动物" comment="植物1 动物2"/>
+		<item type="int" name="品质" code="quality" comment="品质"/>
+		<item type="int" name="权重" code="weight" comment="权重"/>
+		<item type="int" name="价格" code="price" comment="价格"/>
+		<item type="int" name="产量" code="output" comment="产量"/>
+		<item type="int" name="成功率" code="successRate" comment="成功率"/>
+	</node>
+
+	<node type="java" xlsx="道具.xlsx" page="合成资源的配方" out="compound_formula.tbl" code="CompoundFormulaConfig">
+		<item type="int" name="合成物类型" code="id" comment="合成资源id" replace="道具.xlsx|没有颜色的合成资源|名称|合成资源编号"/>
+		<item type="int" name="基础物品编号" code="baseResourceId" comment="基础资源的id" replace="道具.xlsx|基础资源|基础资源名称|基础物品编号"/>		
+		<item type="int" name="基础物品编号" code="plantOrAnimal" comment="植物还是动物" replace="道具.xlsx|基础资源|基础资源名称|植物还是动物"/>		
+		<item type="int" name="数量" code="num" comment="合成需要的数量"/>
+	</node>
+
+	<node type="java" xlsx="道具.xlsx" page="有颜色的合成资源" out="compound_resource.tbl" code="CompoundResourceConfig">
+		<item type="int" name="合成物品编号" code="id" comment="编号"/>
+		<item type="int" name="合成物类型" code="compoundId" comment="合成物id" replace="道具.xlsx|没有颜色的合成资源|名称|合成资源编号"/>
+		<item type="int" name="染料" code="colorId" comment="染料id" replace="道具.xlsx|染料种类|染料名|染料id"/>
+		<item type="int" name="染料" code="colorCost" comment="染料价格" replace="道具.xlsx|染料种类|染料名|价格"/>
+		<item type="int" name="价格" code="price" comment="合成物价格"/>
+	</node>
+
+	<node type="java" xlsx="道具.xlsx" page="染料配方" out="color_formula.tbl" code="ColorFormulaConfig">
+		<item type="int" name="配方id" code="formulaId" comment="染料配方id"/>
+		<item type="int" name="染料名" code="colorId" comment="染料id" replace="道具.xlsx|染料种类|染料名|染料id"/>
+		<item type="int" name="染料名" code="price" comment="染料价格" replace="道具.xlsx|染料种类|染料名|价格"/>
+		<item type="int" name="合成1" code="colorId1" comment="合成染料1id" replace="道具.xlsx|染料种类|染料名|染料id"/>
+		<item type="int" name="合成1" code="price1" comment="合成染料1价格" replace="道具.xlsx|染料种类|染料名|价格"/>
+		<item type="int" name="合成2" code="colorId2" comment="合成染料2id" replace="道具.xlsx|染料种类|染料名|染料id"/>
+		<item type="int" name="合成2" code="price2" comment="合成染料2价格" replace="道具.xlsx|染料种类|染料名|价格"/>
+	</node>
 </data>
