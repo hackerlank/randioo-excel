@@ -45,7 +45,7 @@ item节点:
 		<item type="string" name="性别" code="value" replace="constant.xlsx|性别|性别|值" />
 		<item type="int" name="颜色" code="color" replace="constant.xlsx|品质|颜色|值" />
 	</node>-->
-
+<!-- 
 	<node type="as,java" xlsx="enemyPlane.xlsx" page="enemy" key="id" out="enemyPlane.tbl" code="EnemyPlaneConfig">
 		<item type="int" name="ID" code="id" comment="唯一识别"/>
 		<item type="string" name="skin" code="skin" comment="皮肤"/>
@@ -95,5 +95,14 @@ item节点:
 		<item type="int" name="合成1" code="price1" comment="合成染料1价格" replace="道具.xlsx|染料种类|染料名|价格"/>
 		<item type="int" name="合成2" code="colorId2" comment="合成染料2id" replace="道具.xlsx|染料种类|染料名|染料id"/>
 		<item type="int" name="合成2" code="price2" comment="合成染料2价格" replace="道具.xlsx|染料种类|染料名|价格"/>
+	</node> -->
+	
+	<node type="java" xlsx="定时.xlsx" page="tim" out="timing.tbl" code="TimingConfig">
+		<item type="int" name="星期几" code="id" />
+		<item type="string" name="上午开市时间" code="mStartTime" />
+		<item type="string" name="上午停市时间" code="mEndTime" />
+		<item type="string" name="下午开市时间" code="aStartTime" />
+		<item type="string" name="下午停市时间" code="aEndTime" />
+		<item type="string" name="周几" code="number" />
 	</node>
 </data>

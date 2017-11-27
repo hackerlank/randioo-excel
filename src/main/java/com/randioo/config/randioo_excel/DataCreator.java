@@ -44,7 +44,7 @@ public class DataCreator {
 			for (int i = 0; i < itemConfigList.size(); i++) {
 				FieldConfig itemConfig = itemConfigList.get(i);
 				try {
-					Cell cell = this.locationCell(row, nameColumnIndexMap, itemConfig, excelPath);
+					Cell cell = this.locationCell2(row, nameColumnIndexMap, itemConfig, excelPath);
 					pushData(data, itemConfig.type, cell);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -91,7 +91,8 @@ public class DataCreator {
 	public Cell locationCell2(Row row, Map<String, Integer> nameColumnIndexMap, FieldConfig item, String excelPath) {
 		Cell cell = null;
 		try {
-			cell = row.getCell(nameColumnIndexMap.get(item.name));
+			int column = nameColumnIndexMap.get(item.name);
+			cell = row.getCell(column);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
