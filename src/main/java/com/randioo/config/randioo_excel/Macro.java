@@ -26,4 +26,5 @@ public class Macro {
 	public static final String $MAKE_DIC_TYPE = "${MAKE_DIC_TYPE}";
 	public static final String $DIC_ADD = "${DIC_ADD}";
 	public static final String $DIC_VAR_NAME = "${DIC_VAR_NAME}";
+	public static final String $PACK_NAME = "${PACKAGE_NAME}";
 }

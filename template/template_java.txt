@@ -1,9 +1,9 @@
-package com.aim.config.fo;
+package ${PACKAGE_NAME}.entity.file;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import com.aim.config.cache.${CLASS_NAME}Cache;
+import ${PACKAGE_NAME}.cache.file.${CLASS_NAME}Cache;
 
 public class ${CLASS_NAME}{
 	public static final String urlKey="${URL}";
