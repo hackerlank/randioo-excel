@@ -16,5 +16,6 @@ public class ${CLASS_NAME}{
 			${ASSIGN}
 			${CLASS_NAME}Cache.putConfig(${CONFIG});			
 		}
+		${CLASS_NAME}Cache.refresh();
 	}
 }
