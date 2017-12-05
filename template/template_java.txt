@@ -10,6 +10,7 @@ public class ${CLASS_NAME}{
 	${DECLARE}	
 	public static void parse(ByteBuffer ${BUFFER}){
 		${BUFFER}.order(ByteOrder.LITTLE_ENDIAN);
+		${CLASS_NAME}Cache.clean();
 		while(${BUFFER}.hasRemaining()){
 			${CLASS_NAME} ${CONFIG} = new ${CLASS_NAME}();
 			${ASSIGN}
